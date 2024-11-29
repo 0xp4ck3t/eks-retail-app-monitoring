@@ -1,0 +1,6 @@
+.terraform/
+.idea/
+*.tfstate
+*.tfstate.*
+*.exe
+
