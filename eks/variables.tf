@@ -1,7 +1,6 @@
 # --- iam/variables.tf ---
 
-variable "public_sn" {
-}
+variable "private_sn" {}
 variable "eks_role" {}
 variable "AmazonEKSClusterPolicy" {}
 variable "K8-AmazonEKSVPCResourceController" {}

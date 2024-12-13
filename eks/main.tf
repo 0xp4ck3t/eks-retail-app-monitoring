@@ -3,7 +3,7 @@ resource "aws_eks_cluster" "k8_weather_app" {
   role_arn = var.eks_role
   version = var.k8_version
   vpc_config {
-    subnet_ids = var.public_sn
+    subnet_ids = var.private_sn
   }
   depends_on = [
     var.AmazonEKSClusterPolicy, var.K8-AmazonEKSVPCResourceController
@@ -21,7 +21,6 @@ resource "aws_eks_cluster" "k8_weather_app" {
 resource "aws_eks_addon" "vpc-cni" {
   addon_name   = "vpc-cni"
   cluster_name = aws_eks_cluster.k8_weather_app.name
-#   service_account_role_arn = var.AWS_EKS_VPC_CNI_Role
   addon_version            = "v1.19.0-eksbuild.1"
   pod_identity_association {
     role_arn        = var.AWS_EKS_VPC_CNI_Role
@@ -56,11 +55,11 @@ resource "aws_eks_node_group" "worker_nodes" {
   cluster_name    = aws_eks_cluster.k8_weather_app.name
   node_group_name = "Worker_Nodes"
   node_role_arn   = var.Worker_Node_Role
-  subnet_ids      = var.public_sn
+  subnet_ids      = var.private_sn
 
   scaling_config {
-    desired_size = 1
-    max_size     = 1
+    desired_size = 2
+    max_size     = 2
     min_size     = 1
   }
 
