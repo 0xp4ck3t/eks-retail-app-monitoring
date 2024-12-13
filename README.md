@@ -18,3 +18,5 @@ To remove the application use kubectl again:
 ```kubectl
 kubectl delete -f https://raw.githubusercontent.com/aws-containers/retail-store-sample-app/main/dist/kubernetes/deploy.yaml
 ```
+
+To learn more about the retail up. Visit https://github.com/aws-containers/retail-store-sample-app?tab=readme-ov-file. 
