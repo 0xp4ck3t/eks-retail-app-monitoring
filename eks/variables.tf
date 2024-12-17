@@ -10,3 +10,4 @@ variable "AmazonEC2ContainerRegistryReadOnly" {}
 variable "AmazonEKS_CNI_Policy" {}
 variable "AmazonEKSWorkerNodePolicy" {}
 variable "Worker_Node_Role" {}
+variable "eks-control-plane-sg" {}

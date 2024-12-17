@@ -110,45 +110,45 @@ resource "aws_route_table_association" "k8_private_assoc" {
 
 }
 
-#Security Group
-resource "aws_security_group" "http_security_group" {
-  for_each    = var.https_security_groups
-  name        = each.value.name
-  description = each.value.description
-  vpc_id      = aws_vpc.k8_vpc.id
-  dynamic "ingress" {
-    for_each = each.value.ingress
-    content {
-      from_port   = ingress.value.from
-      to_port     = ingress.value.to
-      protocol    = ingress.value.protocol
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  }
-  #   ingress {
-  #     description = "SSH Access"
-  #     from_port   = 22
-  #     to_port     = 22
-  #     protocol    = "TCP"
-  #     cidr_blocks = [var.access_ip]
-  #   }
-}
+# #Security Group
+# resource "aws_security_group" "http_security_group" {
+#   for_each    = var.https_security_groups
+#   name        = each.value.name
+#   description = each.value.description
+#   vpc_id      = aws_vpc.k8_vpc.id
+#   dynamic "ingress" {
+#     for_each = each.value.ingress
+#     content {
+#       from_port   = ingress.value.from
+#       to_port     = ingress.value.to
+#       protocol    = ingress.value.protocol
+#       cidr_blocks = ["0.0.0.0/0"]
+#     }
+#   }
+#     ingress {
+#       description = "SSH Access"
+#       from_port   = 22
+#       to_port     = 22
+#       protocol    = "TCP"
+#       cidr_blocks = [var.access_ip]
+#     }
+# }
 
-resource "aws_security_group" "ssh_security_group" {
-  for_each    = var.ssh_security_groups
-  name        = each.value.name
-  description = each.value.description
-  vpc_id      = aws_vpc.k8_vpc.id
-  dynamic "ingress" {
-    for_each = each.value.ingress
-    content {
-      from_port   = ingress.value.from
-      to_port     = ingress.value.to
-      protocol    = ingress.value.protocol
-      cidr_blocks = [var.access_ip]
-    }
-  }
-}
+# resource "aws_security_group" "ssh_security_group" {
+#   for_each    = var.ssh_security_groups
+#   name        = each.value.name
+#   description = each.value.description
+#   vpc_id      = aws_vpc.k8_vpc.id
+#   dynamic "ingress" {
+#     for_each = each.value.ingress
+#     content {
+#       from_port   = ingress.value.from
+#       to_port     = ingress.value.to
+#       protocol    = ingress.value.protocol
+#       cidr_blocks = [var.access_ip]
+#     }
+#   }
+# }
 
 resource "aws_security_group" "k8_ALB" {
   for_each    = var.alb_security_groups
@@ -172,18 +172,18 @@ resource "aws_security_group" "k8_ALB" {
   }
 }
 
-# resource "aws_security_group" "k8_DB" {
-#   name = "DB_SG"
-#   description = "SG for DB"
-#   vpc_id = aws_vpc.k8_vpc.id
-#
-#   ingress {
-#     description = "DB Access"
-#     from_port = 3306
-#     to_port = 3306
-#     cidr_blocks = [for subnet in aws_subnet.k8_private : subnet.cidr_block]
-#   }
-# }
+resource "aws_security_group" "eks_control_plane" {
+  name        = "eks-control-plane-sg"
+  description = "Security group for EKS control plane"
+  vpc_id      = aws_vpc.k8_vpc.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 
 
 

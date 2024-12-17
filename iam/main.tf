@@ -8,7 +8,6 @@ data "aws_iam_policy_document" "assume_role" {
       type        = "Service"
       identifiers = ["eks.amazonaws.com"]
     }
-
     actions = ["sts:AssumeRole"]
   }
 }
@@ -39,7 +38,7 @@ data "aws_iam_policy_document" "assume_role_vpc_cni" {
       identifiers = ["pods.eks.amazonaws.com"]
     }
 
-    actions = ["sts:AssumeRole","sts:TagSession"]
+    actions = ["sts:AssumeRole", "sts:TagSession"]
   }
 }
 

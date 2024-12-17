@@ -11,3 +11,6 @@ output "public_subnets" {
 output "private_subnets" {
   value = aws_subnet.k8_private.*.id
 }
+output "eks-control-plane-sg" {
+  value = aws_security_group.eks_control_plane.id
+}
