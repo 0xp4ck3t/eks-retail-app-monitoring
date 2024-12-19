@@ -58,7 +58,7 @@ Error Rate
 sum(increase(gin_requests_total{code=~"404"}[15m])) / sum(increase(gin_requests_total{job="catalog", url!="/health"}[15m]))
 ```
 ## Architecture
-![Architecture](/assets/images/projects/eks-retail-app-monitoring/architecture.jpg "This is an example image")
+![Architecture](https://raw.githubusercontent.com/0xp4ck3t/eks-retail-app-monitoring/refs/heads/main/architecture.png)
 
 
 ### **1. VPC (Virtual Private Cloud)**  
